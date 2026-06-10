@@ -28,6 +28,8 @@ def main():
     clock = pg.time.Clock()
     screen.fill((175, 125, 200))
     gs = engine.GameState()
+    valid_moves = gs.get_valid_moves()
+    move_made = False  # Flag variable for when a move is made
     load_images()
     running = True
     sq_selected = ()  # keeps track of selected fields as (tuple: (row, col)), none is selected right now
@@ -54,9 +56,20 @@ def main():
                 if len(player_clicks) == 2:  # after 2nd click
                     move = engine.Move(player_clicks[0], player_clicks[1], gs.board)
                     print(move.get_chess_notation())
-                    gs.make_move(move)
+                    if move in valid_moves:
+                        gs.make_move(move)
+                        move_made = True
                     sq_selected = ()  # reset user clicks
                     player_clicks = []
+
+            elif e.type == pg.KEYDOWN:
+                if e.key == pg.K_z:
+                    gs.undo_move()
+                    move_made = True
+
+        if move_made:
+            valid_moves = gs.get_valid_moves()
+            move_made = False
 
         draw_gs(screen, gs)
         clock.tick(max_fps)
