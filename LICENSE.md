@@ -1,6 +1,6 @@
 # Lizenzbedingungen / License Terms (Source-Available License)
 
-Copyright (c) 2026 plorii\
+Copyright (c) 2026 larsxp\
 All Rights Reserved
 
 ---
